@@ -1,7 +1,9 @@
 {
-  "clients" : [
-    {"id" : 1, "name" : "Ana Maria", "email": "ana@gmail.com"},
-    {"id" : 2, "name" : "Pedro Silva", "email": "pedro@gmail.com"},
-    {"id" : 3, "name" : "Fernando Gomes", "email": "fernando@gmail.com"}
+  "client": [
+    {
+      "id": 1,
+      "name": "Kaue",
+      "email": "kauesimao1234"
+    }
   ]
 }
