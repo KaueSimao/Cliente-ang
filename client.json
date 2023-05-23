@@ -1,9 +1,3 @@
 {
-  "client": [
-    {
-      "id": 1,
-      "name": "Kaue",
-      "email": "kauesimao1234"
-    }
-  ]
+  "client": []
 }
