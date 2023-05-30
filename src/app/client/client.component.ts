@@ -13,18 +13,12 @@ export class ClientComponent implements OnInit {
 
   clients: Client[] = [];
   isEditing: boolean = false;
-  formGroupClient: FormGroup;
-  submitted: boolean = false;
+  client : Client ={} as Client;
 
-  constructor(private ClientService: ClientService,
-    private formBuilder: FormBuilder) {
-    this.formGroupClient = formBuilder.group({
-      id: [''],
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+  constructor(private ClientService: ClientService){
 
-    });
   }
+
 
   ngOnInit(): void {
     this.loadClient();
@@ -36,42 +30,32 @@ export class ClientComponent implements OnInit {
       }
     )
   }
-  save() {
-    this.submitted = true;
+  onSaveEvent(client : Client) {
+      if (this.isEditing)
 
-    if (this.formGroupClient.valid)
-      if (this.isEditing) {
-        this.ClientService.update(this.formGroupClient.value).subscribe(
-
-          {
-            next: () => {
+      {
+        this.ClientService.update(client).subscribe({
+            next: data => {
               this.loadClient();
-              this.formGroupClient.reset();
               this.isEditing = false;
-              this.submitted = false;
             }
           }
         )
       }
       else {
-        this.ClientService.save(this.formGroupClient.value).subscribe(
+        this.ClientService.save(client).subscribe(
           {
             next: data => {
               this.clients.push(data);
-              this.formGroupClient.reset();
-              this.submitted = false;
             }
           }
         )
       }
   }
-  clean() {
-    this.formGroupClient.reset();
-    this.isEditing = false;
-  }
+
   edit(client: Client) {
-    this.formGroupClient.setValue(client);
-    this.isEditing = true;
+    this.client = client;
+    this.isEditing = false;
 
   }
 
@@ -80,10 +64,5 @@ export class ClientComponent implements OnInit {
       next: () => this.loadClient()
     })
   }
-  get name() : any{
-    return this.formGroupClient.get("name");
-  }
-  get email() : any{
-    return this.formGroupClient.get("email");
-  }
+
 }

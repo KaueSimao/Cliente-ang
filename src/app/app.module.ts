@@ -5,11 +5,13 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ClientComponent } from './client/client.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClientFormComponent } from './client-form/client-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientComponent
+    ClientComponent,
+    ClientFormComponent
   ],
   imports: [
     BrowserModule,  
