@@ -3,7 +3,7 @@
     <form [formGroup]="formGroupClient">
       <div class="mb-3">
         <div class="display-6 text-center">
-          Cadastro de Clientes
+          Cadastro de Estudantes
         </div>
         <label for="name" class="form-label">Nome:</label>
         <input type="text" class="form-control" id="name"  formControlName="name" placeholder="Nome">
@@ -17,10 +17,18 @@
         <div *ngIf="submitted && email.invalid">
           <small class="text-danger">Email inválido</small>
         </div>
+        <div class="mb-3">
+          <label for="rg" class="form-label">RG:</label>
+          <input type="rg" class="form-control" id="tg" formControlName="rg" placeholder="RG">
+          </div>
+          <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="telefone" class="form-control" id="telefone" formControlName="telefone" placeholder="Telefone">
+            </div>
       </div>
-      <div class="mb-3 d-flex justify-content-end">
-        <button class="btn btn-primary" (click)="save()">Salvar</button>
-        <button class="btn btn-secondary" (click)="clean()">Limpar</button>
+      <div>
+        <button class="btn btn-lg btn-dark" (click)="save()">Salvar</button>
+        <button class="btn btn-lg btn-dark" (click)="cancel()">Cancelar</button>
       </div>
     </form>
   </div>

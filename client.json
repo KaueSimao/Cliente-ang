@@ -2,13 +2,10 @@
   "client": [
     {
       "id": 1,
-      "name": "kaue",
-      "email": "kauesimao123242@gmail.com"
-    },
-    {
-      "id": 2,
-      "name": "william",
-      "email": "william@gmail.com"
+      "name": "william ",
+      "email": "kauesimao20@gmail.com",
+      "rg": "9798798798798",
+      "telefone": "98798789789789"
     }
   ]
 }

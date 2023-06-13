@@ -1,54 +1,85 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ClientService } from './../client.service';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Client } from '../client';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-form',
   templateUrl: './client-form.component.html',
   styleUrls: ['./client-form.component.css']
 })
-export class ClientFormComponent implements OnChanges {
-
-  @Input()
-  client : Client = {} as Client;
-
-  @Output()
-  saveEvent = new EventEmitter<Client>();
+export class ClientFormComponent implements OnInit {
 
   formGroupClient: FormGroup;
   submitted: boolean = false;
+  isEditing: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+    private ClientService: ClientService,
+    private route: ActivatedRoute,
+    private router: Router
+
+  ) {
     this.formGroupClient = formBuilder.group({
       id: [''],
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      rg: ['', [Validators.required]],
+      telefone: ['', [Validators.required]]
 
     });
 
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.formGroupClient.setValue(this.client);
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get("id"));
+    this.getClientById(id);
   }
 
-  save(){
+  getClientById(id: number) {
+    this.ClientService.getClient(id).subscribe({
+      next: data => {
+        this.formGroupClient.setValue(data);
+        this.isEditing = true;
+      }
+    })
+  }
+
+  save() {
     this.submitted = true;
-    if(this.formGroupClient.valid){
-      this.saveEvent.emit(this.formGroupClient.value);
-      this.formGroupClient.reset();
-      this.submitted = false;
+    if (this.formGroupClient.value) {
+      if (this.isEditing) {
+        this.ClientService.update(this.formGroupClient.value).subscribe({
+          next: () => {
+            this.router.navigate(['clients']);
+          }
+        })
+      }
+      else {
+        this.ClientService.save(this.formGroupClient.value).subscribe({
+          next: () => {
+            this.router.navigate(['clients']);
+          }
+        })
+      }
     }
   }
 
-  clean() {
-    this.formGroupClient.reset();
-    this.submitted = false;
+  cancel() {
+    this.router.navigate(['clients']);
   }
 
-  get name() : any{
+  get name(): any {
     return this.formGroupClient.get("name");
   }
-  get email() : any{
+  get email(): any {
     return this.formGroupClient.get("email");
+
+  }
+  get rg(): any {
+    return this.formGroupClient.get("rg");
+  }
+  get telefone(): any {
+    return this.formGroupClient.get("telefone");
   }
 }

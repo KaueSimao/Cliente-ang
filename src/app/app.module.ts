@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ClientComponent } from './client/client.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClientFormComponent } from './client-form/client-form.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ClientFormComponent } from './client-form/client-form.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
